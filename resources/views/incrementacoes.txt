@@ -1,0 +1,29 @@
+USE bdFocus;
+
+INSERT INTO diary 
+(title_diary, date_diary, feeling_diary, descricao_diary, created_at, updated_at)
+VALUES
+('Dia produtivo', '2026-05-25', 'Feliz', 'Hoje consegui terminar várias atividades e fiquei satisfeita com meu desempenho.', NOW(), NOW()),
+('Cansada mas bem', '2026-05-26', 'Normal', 'O dia foi corrido, mas consegui organizar minhas tarefas.', NOW(), NOW()),
+('Apresentação na escola', '2026-05-27', 'Ansioso', 'Fiquei nervosa antes da apresentação, mas no final deu tudo certo.', NOW(), NOW());
+
+INSERT INTO hobbies
+(nome_hobby, meta, categoria, created_at, updated_at)
+VALUES
+('Desenho', '30min por dia', 'Criativo', NOW(), NOW()),
+('Caminhada', '3 vezes por semana', 'Saúde', NOW(), NOW()),
+('Meditação', '10min por dia', 'Bem-estar', NOW(), NOW());
+
+INSERT INTO tasks
+(nome_tarefa, descricao_tarefa, data_inicio, horario_tarefa, tipo_tarefa, local_tarefa, concluida, created_at, updated_at)
+VALUES
+('Estudar MySQL', 'Revisar comandos INSERT, SELECT e UPDATE', '2026-05-28', '19:30:00', 'Estudo', 'Casa', 0, NOW(), NOW()),
+('Organizar quarto', 'Guardar roupas e limpar a mesa', '2026-05-29', '15:00:00', 'Limpeza', 'Casa', 0, NOW(), NOW()),
+('Fazer trabalho de Laravel', 'Finalizar a tela de listagem e cadastro', '2026-05-30', '20:00:00', 'Estudo', 'Casa', 0, NOW(), NOW());
+
+INSERT INTO usuarios
+(name, email, cpf, telefone, data_nasc, password, created_at, updated_at)
+VALUES
+('Ana Beatriz', 'beatriz@gmail.com', '12345678901', '11987654321', '2005-08-12', 'beatriz123', NOW(), NOW()),
+('Pedro Henrique', 'pedro@gmail.com', '98765432109', '11976543210', '2004-03-25', 'pedro123', NOW(), NOW()),
+('Mariana Lima', 'mariana@gmail.com', '45678912300', '11965432109', '2006-11-18', 'mariana123', NOW(), NOW());

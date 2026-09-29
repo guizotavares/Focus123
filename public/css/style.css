@@ -1,0 +1,556 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg:          #090D18;
+    --surface:     #0E1525;
+    --surface-2:   #14203A;
+    --surface-3:   #1A2B4A;
+    --blue:        #2563EB;
+    --blue-mid:    #3B82F6;
+    --blue-light:  #60A5FA;
+    --blue-pale:   rgba(37, 99, 235, 0.08);
+    --blue-glow:   rgba(59, 130, 246, 0.20);
+    --text:        #E8EDF5;
+    --text-muted:  #5A6B8A;
+    --border:      rgba(59, 130, 246, 0.12);
+    --white:       #ffffff;
+
+    --tran-02: all 0.2s ease;
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.4s ease;
+    --tran-05: all 0.5s ease;
+}
+
+* {
+    font-family: 'Outfit', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* ── Layout ── */
+.home {
+    position: relative;
+    left: 250px;
+    height: 100vh;
+    width: calc(100% - 250px);
+    background: var(--bg);
+    overflow-y: auto;
+}
+
+.sidebar.close ~ .home {
+    left: 88px;
+    width: calc(100% - 88px);
+}
+
+.home .content {
+    padding: 24px 48px 48px;
+}
+
+/* ── Header ── */
+.home .header-home {
+    background: var(--surface);
+    padding: 0 48px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.header-home .logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.header-home .logo span {
+    color: var(--blue-mid);
+}
+
+/* ── Top widget cards (humor / dias da semana) ── */
+.home .content .cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.cards .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    width: 100%;
+    margin-top: 28px;
+    padding: 22px 32px;
+    border-radius: 14px;
+    transition: var(--tran-03);
+}
+
+.cards .card:hover {
+    border-color: rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 20px var(--blue-glow);
+}
+
+/* Task cards container */
+.tasks .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    width: 100%;
+    margin-top: 16px;
+    padding: 20px 28px;
+    border-radius: 14px;
+    transition: var(--tran-03);
+    cursor: pointer;
+}
+
+.tasks .card:hover {
+    border-color: rgba(59, 130, 246, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(9, 13, 24, 0.6), 0 0 0 1px rgba(59, 130, 246, 0.2);
+}
+
+/* Card title generic */
+.home .card .title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.home .card .title p {
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.home .card .title .icon {
+    color: var(--blue-mid);
+    font-size: 26px;
+}
+
+/* ── Mood emojis ── */
+.emojis {
+    width: 100%;
+    display: flex;
+    margin-top: 16px;
+    justify-content: space-between;
+}
+
+.emojis i {
+    font-size: 30px;
+    color: #fff;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    padding: 6px;
+    cursor: pointer;
+    transition: var(--tran-03);
+}
+
+.emojis i:hover {
+    background: var(--blue-pale);
+    border-color: var(--blue-mid);
+    transform: scale(1.12);
+}
+
+/* ── Week days ── */
+.dias {
+    width: 100%;
+    display: flex;
+    margin-top: 16px;
+    justify-content: space-between;
+    gap: 6px;
+}
+
+.dias p {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 12px;
+    height: 38px;
+    width: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    flex: 1;
+    transition: var(--tran-02);
+}
+
+.dias p:nth-child(2) {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: #fff;
+    box-shadow: 0 0 14px var(--blue-glow);
+}
+
+/* ── Section header (Minhas Tarefas) ── */
+.menu-home {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 32px 0 8px;
+}
+
+.menu-home h1 {
+    font-family: 'Syne', sans-serif;
+    color: var(--text);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.menu-home .addTask {
+    background: var(--blue);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 52px;
+    font-size: 22px;
+    cursor: pointer;
+    transition: var(--tran-03);
+    box-shadow: 0 4px 20px var(--blue-glow);
+}
+
+.menu-home .addTask:hover {
+    background: var(--blue-mid);
+    transform: scale(1.08);
+    box-shadow: 0 6px 28px rgba(59, 130, 246, 0.4);
+}
+
+.menu-home .icon {
+    color: #fff;
+}
+
+.menu-home .addTask a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ── Task list ── */
+.tasks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0;
+}
+
+.tasks .card .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tasks .card .title h2 {
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.tasks .card .title .contentDate {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.tasks .card .title .contentDate p {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.tasks .card .title .checkbox {
+    position: relative;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--blue);
+}
+
+.card .title .checkbox input {
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--surface);
+    cursor: pointer;
+    outline: none;
+    border-radius: 50%;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.card .title .checkbox i {
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    pointer-events: none;
+    display: none;
+    color: #fff;
+    font-size: 14px;
+}
+
+.checkbox input:checked ~ .check {
+    display: block;
+}
+
+.tasks .card .title p {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.card .conteudo {
+    margin-top: 10px;
+}
+
+.card .conteudo p {
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.card .conteudo p strong {
+    color: var(--text);
+    font-weight: 600;
+}
+
+/* Progress bar */
+.tasks .card .conteudo .barra {
+    width: 100%;
+    height: 3px;
+    margin-top: 14px;
+    background: var(--surface-2);
+    border-radius: 99px;
+}
+
+.card .conteudo .rotinas {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+}
+
+.conteudo .rotinas .excluir {
+    background: rgba(239, 68, 68, 0.12);
+    padding: 5px 10px;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 6px;
+}
+
+.conteudo .rotinas .excluir p {
+    color: #EF4444;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.conteudo .rotinas .editar {
+    background: var(--blue-pale);
+    padding: 5px 10px;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 6px;
+}
+
+.conteudo .rotinas .editar p {
+    color: var(--blue-light);
+    font-weight: 500;
+    font-size: 13px;
+}
+
+/* ── Modal ── */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(9, 13, 24, 0.85);
+    backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    width: 520px;
+    max-width: 90%;
+    border-radius: 18px;
+    padding: 28px;
+    animation: modalIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    box-shadow: 0 24px 64px rgba(9, 13, 24, 0.8), 0 0 0 1px rgba(59, 130, 246, 0.1);
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: translateY(16px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.modal-header h2 {
+    font-family: 'Syne', sans-serif;
+    color: var(--text);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.close-icon {
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.close-icon:hover {
+    color: var(--text);
+}
+
+.modal-info {
+    margin-top: 10px;
+    color: var(--text-muted);
+}
+
+.modal-info i {
+    margin-right: 5px;
+    background: var(--blue-pale);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    font-size: 18px;
+    padding: 6px;
+    margin: 5px;
+    border-radius: 8px;
+    color: var(--blue-light);
+}
+
+.row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.row-date p {
+    color: var(--text);
+    font-size: 14px;
+}
+
+.row-date .date-title {
+    color: var(--text-muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 600;
+}
+
+.modal-body {
+    margin-top: 16px;
+}
+
+.content-description {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+}
+
+.modal-body .content-description p {
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.content-description .title p {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.modal-body .extra {
+    margin-top: 14px;
+    font-size: 13px;
+}
+
+.modal-body .extra p {
+    color: var(--text-muted);
+    line-height: 1.8;
+}
+
+.modal-body .extra p strong {
+    color: var(--text);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.btn {
+    flex: 1;
+    text-align: center;
+    padding: 11px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    margin: 0;
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--tran-02);
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn.editar {
+    background: var(--blue-pale);
+    color: var(--blue-light);
+    border-color: rgba(59, 130, 246, 0.25);
+}
+
+.btn.editar:hover {
+    background: rgba(59, 130, 246, 0.16);
+    border-color: var(--blue-mid);
+}
+
+.btn.excluir {
+    background: rgba(239, 68, 68, 0.10);
+    color: #EF4444;
+    border-color: rgba(239, 68, 68, 0.25);
+}
+
+.btn.excluir:hover {
+    background: rgba(239, 68, 68, 0.18);
+    border-color: #EF4444;
+}
