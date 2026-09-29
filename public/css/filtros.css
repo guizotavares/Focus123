@@ -1,0 +1,131 @@
+/* ── Filtros (tela de tarefas) ──
+   Usa as variáveis definidas em style.css (:root) */
+
+.filtros-panel {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin: 12px 0 8px;
+}
+
+.filtro-grupo {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: var(--tran-03);
+}
+
+.filtro-grupo:hover,
+.filtro-grupo:focus-within {
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.filtro-full { grid-column: 1 / -1; }
+
+.filtro-titulo {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+.filtro-titulo i { color: var(--blue-light); font-size: 15px; }
+
+.filtro-opcoes,
+.filtro-campos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Radio vira "chip" */
+.filtro-chip input { display: none; }
+
+.filtro-chip span {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--tran-02);
+}
+
+.filtro-chip span:hover {
+    border-color: var(--blue-mid);
+    color: var(--text);
+}
+
+.filtro-chip input:checked + span {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: #fff;
+    box-shadow: 0 2px 14px var(--blue-glow);
+}
+
+/* Datas */
+.filtro-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.filtro-input {
+    padding: 9px 14px;
+    border: 1px solid var(--surface-3);
+    background: var(--surface-2);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    outline: none;
+    color-scheme: dark;
+    transition: var(--tran-02);
+}
+
+.filtro-input:focus {
+    border-color: var(--blue-mid);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Botão */
+.botao-filtrar {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 20px;
+    background: var(--blue-pale);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 10px;
+    color: var(--blue-light);
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--tran-02);
+}
+
+.botao-filtrar:hover {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: #fff;
+    box-shadow: 0 4px 16px var(--blue-glow);
+}
+
+@media (max-width: 900px) {
+    .filtros-panel { grid-template-columns: 1fr; }
+}

@@ -14,7 +14,8 @@ class AutenticacaoMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (! session()->has('usuario_id')) {
-            return redirect('/auth')->with('erro', 'Faça login para acessar esta página.');
+               return redirect()->guest(route('auth.index'))
+                ->with('erro', 'Faça login para acessar esta página.');
         }
 
         return $next($request);

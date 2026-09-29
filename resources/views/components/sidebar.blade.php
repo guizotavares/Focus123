@@ -31,7 +31,7 @@
                 </li>
                 <li class="nav-link">
                     <a href="#">
-                        <i class="bx bx-handshake icon"></i>
+                        <i class="bx bx-chart sine"></i>
                         <span class="text nav-text">Reflexão</span>
                     </a>
                 </li>
@@ -47,6 +47,12 @@
                         <span class="text nav-text">Hobbies</span>
                     </a>
                 </li>
+                <li class="nav-link">
+                <a href="{{ route('dashboard') }}">
+                     <i class="bx bx-handshake icon"></i>
+                    <span class="text nav-text">Dashboard</span>
+                </a>
+            </li>
             </ul>
         </div>
 

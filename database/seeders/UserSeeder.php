@@ -2,53 +2,27 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Popula a tabela "users" (usada pelo Laravel Auth / Auth::attempt).
-     */
     public function run(): void
     {
-        DB::table('users')->insert([
-            [
-                'name'       => 'Guizo Admin',
-                'email'      => 'guizo@focus.com',
-                'password'   => Hash::make('123456'),
-                'created_at' => \now(),
-                'updated_at' => \now(),
-            ],
-            [
-                'name'       => 'Joaquim Silva',
-                'email'      => 'joaquim@focus.com',
-                'password'   => Hash::make('123456'),
-                'created_at' => \now(),
-                'updated_at' => \now(),
-            ],
-            [
-                'name'       => 'Ana Beatriz',
-                'email'      => 'ana@focus.com',
-                'password'   => Hash::make('123456'),
-                'created_at' => \now(),
-                'updated_at' => \now(),
-            ],
-            [
-                'name'       => 'Marcelo Souza',
-                'email'      => 'marcelo@focus.com',
-                'password'   => Hash::make('123456'),
-                'created_at' => \now(),
-                'updated_at' => \now(),
-            ],
-            [
-                'name'       => 'Yuri Alberto',
-                'email'      => 'yuri@focus.com',
-                'password'   => Hash::make('123456'),
-                'created_at' => \now(),
-                'updated_at' => \now(),
-            ],
-        ]);
+        $usuarios = [
+            ['Guizo Admin',   'guizo@focus.com'],
+            ['Joaquim Silva', 'joaquim@focus.com'],
+            ['Ana Beatriz',   'ana@focus.com'],
+            ['Marcelo Souza', 'marcelo@focus.com'],
+            ['Yuri Alberto',  'yuri@focus.com'],
+        ];
+
+        foreach ($usuarios as [$nome, $email]) {
+            User::updateOrCreate(
+                ['email' => $email],
+                ['name' => $nome, 'password' => Hash::make('123456')]
+            );
+        }
     }
 }

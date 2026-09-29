@@ -7,6 +7,7 @@
     <title>Home</title>
     <link rel="stylesheet" href="{{url('css/style.css')}}">
     <link rel="stylesheet" href="{{url('css/sidebar.css')}}">
+    <link rel="stylesheet" href="{{url('css/filtros.css')}}">
     <link href="https://cdn.boxicons.com/3.0.8/fonts/basic/boxicons.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="{{url('./images/icon.png')}}">
 </head>
@@ -70,64 +71,68 @@
                 </div>
             </div>
 
+            <div class="filtros-panel">
 
-            <form action="{{ route('tasks.filterTipos') }}" method="GET">
-                @csrf
-                @method('GET')
-                <p class="filtro-título"><strong>Tipo</strong></p>
-                <label class="filtro">
-                    <input class="bolinha" type="radio" name="txTipo" value="todas" checked> Todas
-                </label>
-
-                @foreach($tipos as $tipo)
-                <label class="filtro">
-                    <input class="bolinha" type="radio" name="txTipo" value="{{ $tipo->tipo_tarefa }}"> {{ $tipo->tipo_tarefa }}
-                </label>
-                @endforeach
-                <input class="botão-filtrar" type="submit" value="Filtrar">
-            </form>
-            <form action="{{ route('tasks.filterConcluidas') }}" method="GET">
-                @csrf
-                @method('GET')
-                <p class="filtro-título"><strong>Concluída</strong></p>
-                <label class="filtro">
-                    <input class="bolinha" type="radio" name="txConcluir" value="todas" checked> Todas
-                </label>
-
-                @foreach($concluidas as $concluida)
-                <label class="filtro">
-                    <input class="bolinha" type="radio" name="txConcluir" value="{{ $concluida->concluida}}"> {{ $concluida->concluida ? 'Sim' : 'Não'}}
-                </label>
-                @endforeach
-
-                <input class="botão-filtrar" type="submit" value="Filtrar">
-            </form>
-
-            <div class="form-por-data">
-                <form action="{{ route('tasks.filterPorData') }}" method="GET">
-                    <div class="linha-por-data">
-                        <p class="filtro-titulo-inline"><strong>Por Data</strong></p>
-                        <input type="date" name="data" id="data">
-                        <button type="submit" class="botao-filtrar">Filtrar</button>
+                {{-- Tipo --}}
+                <form action="{{ route('tasks.filterTipos') }}" method="GET" class="filtro-grupo filtro-full">
+                    <span class="filtro-titulo"><i class="bx bx-purchase-tag-alt"></i> Tipo</span>
+                    <div class="filtro-opcoes">
+                        <label class="filtro-chip">
+                            <input type="radio" name="txTipo" value="todas" {{ request('txTipo', 'todas') == 'todas' ? 'checked' : '' }}>
+                            <span>Todas</span>
+                        </label>
+                        @foreach($tipos as $tipo)
+                        <label class="filtro-chip">
+                            <input type="radio" name="txTipo" value="{{ $tipo->tipo_tarefa }}" {{ request('txTipo') == $tipo->tipo_tarefa ? 'checked' : '' }}>
+                            <span>{{ $tipo->tipo_tarefa }}</span>
+                        </label>
+                        @endforeach
                     </div>
+                    <button type="submit" class="botao-filtrar"><i class="bx bx-filter-alt"></i> Filtrar</button>
                 </form>
-            </div>
-            
-            <div class="form-entre-datas">
-                <form action="{{ route('tasks.filterEntreDatas') }}" method="GET">
-                    <p class="filtro-titulo"><strong>Entre Datas</strong></p>
 
-                    <div class="campo-data">
-                        <label for="data1">Data Inicial</label>
-                        <input type="date" name="data1" id="data1">
-
-                        <label for="data2">Data Final</label>
-                        <input type="date" name="data2" id="data2">
-                    
-
-                    <button type="submit" class="botao-filtrar">Filtrar</button>
+                {{-- Concluída --}}
+                <form action="{{ route('tasks.filterConcluidas') }}" method="GET" class="filtro-grupo">
+                    <span class="filtro-titulo"><i class="bx bx-check-circle"></i> Concluída</span>
+                    <div class="filtro-opcoes">
+                        <label class="filtro-chip">
+                            <input type="radio" name="txConcluir" value="todas" {{ request('txConcluir', 'todas') == 'todas' ? 'checked' : '' }}>
+                            <span>Todas</span>
+                        </label>
+                        @foreach($concluidas as $concluida)
+                        <label class="filtro-chip">
+                            <input type="radio" name="txConcluir" value="{{ $concluida->concluida }}"
+                                {{ (string) request('txConcluir') === (string) $concluida->concluida ? 'checked' : '' }}>
+                            <span>{{ $concluida->concluida ? 'Sim' : 'Não' }}</span>
+                        </label>
+                        @endforeach
                     </div>
+                    <button type="submit" class="botao-filtrar"><i class="bx bx-filter-alt"></i> Filtrar</button>
                 </form>
+
+                {{-- Por Data --}}
+                <form action="{{ route('tasks.filterPorData') }}" method="GET" class="filtro-grupo">
+                    <span class="filtro-titulo"><i class="bx bx-calendar-alt"></i> Por Data</span>
+                    <div class="filtro-campos">
+                        <input type="date" name="data" class="filtro-input" value="{{ request('data') }}">
+                    </div>
+                    <button type="submit" class="botao-filtrar"><i class="bx bx-filter-alt"></i> Filtrar</button>
+                </form>
+
+                {{-- Entre Datas --}}
+                <form action="{{ route('tasks.filterEntreDatas') }}" method="GET" class="filtro-grupo filtro-full">
+                    <span class="filtro-titulo"><i class="bx bx-calendar-week"></i> Entre Datas</span>
+                    <div class="filtro-campos">
+                        <label class="filtro-label">Inicial
+                            <input type="date" name="data1" class="filtro-input" value="{{ request('data1') }}">
+                        </label>
+                        <label class="filtro-label">Final
+                            <input type="date" name="data2" class="filtro-input" value="{{ request('data2') }}">
+                        </label>
+                    </div>
+                    <button type="submit" class="botao-filtrar"><i class="bx bx-filter-alt"></i> Filtrar</button>
+                </form>
+
             </div>
 
             <div class="tasks">
@@ -226,7 +231,8 @@
                 @empty
                 <p>Nenhuma tarefa cadastrada.</p>
                 @endforelse
-            </div>
+            </div> {{-- fecha .tasks --}}
+        </div> {{-- fecha .content --}}
     </section>
 
     <script>

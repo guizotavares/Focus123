@@ -2,18 +2,18 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
         $this->call([
-            UserSeeder::class,
+            UserSeeder::class,     // tabela users
+            UsuarioSeeder::class,  // tabela usuarios (login do app)
+            TaskSeeder::class,     // tabela tasks
+            HobbySeeder::class,    // tabela hobbies
+            DiarySeeder::class,    // tabela diary
         ]);
     }
 }
