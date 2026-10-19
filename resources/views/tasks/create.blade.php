@@ -14,7 +14,7 @@
 
     <section class="home">
         <div class="header-home">
-            <a href="./index.html" class="logo">Focus<span>+</span></a>
+            <a href="{{ route('tasks.index') }}" class="logo">Focus<span>+</span></a>
         </div>
 
         <div class="content">
@@ -23,14 +23,21 @@
                     <i class="bx bx-sparkles-alt icon"></i>
                     <h1>Criar nova Tarefa</h1>
                 </div>
+
                 <form action="{{ route('tasks.store') }}" method="POST">
                     @csrf
+
+                    {{-- Erros de validação (vindos do TaskFormRequest) --}}
+                    @include('components/erros')
+
                     <div class="title-form card">
                         <label>
                             <i class="bx bx-price-tag-alt"></i>
                             Título
                         </label>
-                        <input type="text" name="nome_tarefa" placeholder="Ex: Reunião importante" required>
+                        <input type="text" name="nome_tarefa"
+                               value="{{ old('nome_tarefa') }}"
+                               placeholder="Ex: Reunião importante">
                     </div>
 
                     <div class="description card">
@@ -38,7 +45,7 @@
                             <i class="bx bx-captions"></i>
                             Descrição
                         </label>
-                        <textarea name="descricao_tarefa" placeholder="Adicione mais detalhes..."></textarea>
+                        <textarea name="descricao_tarefa" placeholder="Adicione mais detalhes...">{{ old('descricao_tarefa') }}</textarea>
                     </div>
 
                     <div class="row">
@@ -47,31 +54,36 @@
                                 <i class="bx bx-calendar-alt"></i>
                                 Data de início
                             </label>
-                            <input type="date" name="data_inicio" required>
+                            <input type="date" name="data_inicio" value="{{ old('data_inicio') }}">
                         </div>
                         <div class="time card">
                             <label>
                                 <i class="bx bx-clock"></i>
                                 Horário
                             </label>
-                            <input type="time" name="horario_tarefa">
+                            <input type="time" name="horario_tarefa" value="{{ old('horario_tarefa') }}">
                         </div>
                     </div>
+
                     <div class="title-form card">
                         <label>
                             <i class="bx bx-price-tag-alt"></i>
                             Tipo
                         </label>
-                        <input type="text" name="tipo_tarefa" placeholder="Ex: Estudo, Trabalho, Lazer..." required>
+                        <input type="text" name="tipo_tarefa"
+                               value="{{ old('tipo_tarefa') }}"
+                               placeholder="Ex: Estudo, Trabalho, Lazer...">
                     </div>
+
                     <div class="place card">
                         <label>
                             <i class="bx bx-location-plus"></i>
                             Local
                         </label>
-                        <input type="text" name="local_tarefa" placeholder="Ex: Escritório, Casa, Apartamento etc..." required>
+                        <input type="text" name="local_tarefa"
+                               value="{{ old('local_tarefa') }}"
+                               placeholder="Ex: Escritório, Casa, Apartamento etc...">
                     </div>
-
 
                     <div class="button">
                         <button type="submit">

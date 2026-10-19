@@ -27,19 +27,14 @@
                 <form action="{{ route('hobbies.store') }}" method="POST">
                     @csrf
 
-                    @if($errors->any())
-                        <div class="alert-success" style="background:#fee2e2;color:#991b1b;">
-                            @foreach($errors->all() as $error)
-                                <p>{{ $error }}</p>
-                            @endforeach
-                        </div>
-                    @endif
+                    {{-- Erros de validação (vindos do HobbyFormRequest) --}}
+                    @include('components/erros')
 
                     <div class="field-card">
                         <label><i class="bx bx-sparkles-alt"></i> Nome do Hobby</label>
                         <input type="text" name="nome_hobby"
                                placeholder="Ex: Leitura, Yoga, Fotografia..."
-                               value="{{ old('nome_hobby') }}" required>
+                               value="{{ old('nome_hobby') }}">
                     </div>
 
                     <div class="field-card">

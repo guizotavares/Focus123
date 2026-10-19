@@ -14,7 +14,7 @@
 
     <section class="home">
         <div class="header-home">
-            <a href="./index.html" class="logo">Focus<span>+</span></a>
+            <a href="{{ route('tasks.index') }}" class="logo">Focus<span>+</span></a>
         </div>
 
         <div class="content">
@@ -27,12 +27,18 @@
                 <form action="{{ route('tasks.update', $task->id) }}" method="POST">
                     @csrf
                     @method('PUT')
+
+                    {{-- Erros de validação (vindos do TaskFormRequest) --}}
+                    @include('components/erros')
+
                     <div class="title-form card">
                         <label>
                             <i class="bx bx-price-tag-alt"></i>
                             Título
                         </label>
-                        <input type="text" name="nome_tarefa"  value="{{ $task->nome_tarefa }}" placeholder="Ex: Reunião importante" >
+                        <input type="text" name="nome_tarefa"
+                               value="{{ old('nome_tarefa', $task->nome_tarefa) }}"
+                               placeholder="Ex: Reunião importante">
                     </div>
 
                     <div class="description card">
@@ -40,7 +46,7 @@
                             <i class="bx bx-captions"></i>
                             Descrição
                         </label>
-                        <textarea name="descricao_tarefa" placeholder="Adicione mais detalhes..."> {{ $task->descricao_tarefa }}</textarea>
+                        <textarea name="descricao_tarefa" placeholder="Adicione mais detalhes...">{{ old('descricao_tarefa', $task->descricao_tarefa) }}</textarea>
                     </div>
 
                     <div class="row">
@@ -49,29 +55,39 @@
                                 <i class="bx bx-calendar-alt"></i>
                                 Data de início
                             </label>
-                            <input type="date" name="data_inicio" value="{{ $task->data_inicio }}" >
+                            <input type="date" name="data_inicio"
+                                   value="{{ old('data_inicio', $task->data_inicio) }}">
                         </div>
                         <div class="time card">
                             <label>
                                 <i class="bx bx-clock"></i>
                                 Horário
                             </label>
-                            <input type="time" name="horario_tarefa" value="{{ $task->horario_tarefa }}">
+                            {{-- O banco guarda HH:MM:SS; cortamos para HH:MM,
+                                 senão a regra date_format:H:i reprova. --}}
+                            <input type="time" name="horario_tarefa"
+                                   value="{{ old('horario_tarefa', $task->horario_tarefa ? substr($task->horario_tarefa, 0, 5) : '') }}">
                         </div>
                     </div>
+
                     <div class="title-form card">
                         <label>
                             <i class="bx bx-price-tag-alt"></i>
                             Tipo
                         </label>
-                        <input type="text" name="tipo_tarefa" value="{{ $task->tipo_tarefa }}" placeholder="Ex: Estudo, Trabalho, Lazer...">
+                        <input type="text" name="tipo_tarefa"
+                               value="{{ old('tipo_tarefa', $task->tipo_tarefa) }}"
+                               placeholder="Ex: Estudo, Trabalho, Lazer...">
                     </div>
+
                     <div class="place card">
                         <label>
                             <i class="bx bx-location-plus"></i>
                             Local
                         </label>
-                        <input type="text" name="local_tarefa" value="{{ $task->local_tarefa }}" placeholder="Ex: Escritório, Casa, Apartamento etc...">
+                        <input type="text" name="local_tarefa"
+                               value="{{ old('local_tarefa', $task->local_tarefa) }}"
+                               placeholder="Ex: Escritório, Casa, Apartamento etc...">
                     </div>
 
                     <div class="button">
@@ -86,7 +102,5 @@
         </div>
 
     </section>
-
-    <script src="./js/script.js"></script>
 </body>
 </html>

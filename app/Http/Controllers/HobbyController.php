@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\HobbyFormRequest;
 use App\Models\Hobby;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,6 @@ class HobbyController extends Controller
     {
         $hobbies = Hobby::orderBy('created_at', 'desc')->get();
         return view('hobbies.index', compact('hobbies'));
-       
     }
 
     public function create()
@@ -19,21 +19,14 @@ class HobbyController extends Controller
         return view('hobbies.create');
     }
 
-    public function store(Request $request)
+    /**
+     * A validação acontece ANTES de entrar neste método, dentro do
+     * HobbyFormRequest. Se falhar, o Laravel volta ao formulário com
+     * $errors e old(); se passar, chegamos aqui com dados válidos.
+     */
+    public function store(HobbyFormRequest $request)
     {
-        $request->validate([
-            'nome_hobby' => 'required|string|max:255',
-            'meta'       => 'nullable|string|max:255',
-            'categoria'  => 'nullable|string|max:255',
-        ], [
-            'nome_hobby.required' => 'O nome do hobby é obrigatório.',
-        ]);
-
-        Hobby::create([
-            'nome_hobby' => $request->nome_hobby,
-            'meta'       => $request->meta,
-            'categoria'  => $request->categoria,
-        ]);
+        Hobby::create($request->validated());
 
         return redirect()->route('hobbies.index')->with('success', 'Hobby criado com sucesso!');
     }
@@ -44,21 +37,11 @@ class HobbyController extends Controller
         return view('hobbies.edit', compact('hobby'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(HobbyFormRequest $request, string $id)
     {
         $hobby = Hobby::findOrFail($id);
 
-        $request->validate([
-            'nome_hobby' => 'required|string|max:255',
-            'meta'       => 'nullable|string|max:255',
-            'categoria'  => 'nullable|string|max:255',
-        ]);
-
-        $hobby->update([
-            'nome_hobby' => $request->nome_hobby,
-            'meta'       => $request->meta,
-            'categoria'  => $request->categoria,
-        ]);
+        $hobby->update($request->validated());
 
         return redirect()->route('hobbies.index')->with('success', 'Hobby atualizado com sucesso!');
     }
@@ -87,7 +70,7 @@ class HobbyController extends Controller
             'categoria'  => 'nullable|string|max:255',
         ]);
 
-        $hobby = Hobby::create($request->all());/*Fala com o banco */
+        $hobby = Hobby::create($request->all()); /*Fala com o banco */
 
         return response()->json($hobby);
     }

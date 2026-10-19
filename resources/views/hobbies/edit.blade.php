@@ -28,10 +28,13 @@
                     @csrf
                     @method('PUT')
 
+                    {{-- Erros de validação (vindos do HobbyFormRequest) --}}
+                    @include('components/erros')
+
                     <div class="field-card">
                         <label><i class="bx bx-sparkles-alt"></i> Nome do Hobby</label>
                         <input type="text" name="nome_hobby"
-                               value="{{ old('nome_hobby', $hobby->nome_hobby) }}" required>
+                               value="{{ old('nome_hobby', $hobby->nome_hobby) }}">
                     </div>
 
                     <div class="field-card">
